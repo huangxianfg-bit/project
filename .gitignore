@@ -1,0 +1,21 @@
+# Maven
+target/
+*.jar
+
+# IDEA
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local config
+application-local.yml
+application-dev.yml
+
+# Temporary files
+*.tmp
