@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Graphy03</title>
+  <script src="/js/echarts.min.js"></script>
+  <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+<div id="main02" style="width: 500px;height: 500px">
+
+</div>
+<script>
+  $(function (){
+    var chartDom = document.getElementById('main02');
+    var myChart = echarts.init(chartDom);
+
+    $.getJSON("/displayComments",function (value){
+
+      var option;
+
+      const labelRight = {
+        position: 'right'
+      };
+
+      var data1 = []
+      var data2 = []
+      for (let i = 0; i < value.length; i++) {
+        var json = {}
+        json.value = value[i].total
+        json.label = labelRight
+        data1.push(json)
+        data2.push(value[i].genre)
+        // console.log(value[i].genre)
+      }
+
+      option = {
+        title: {
+          text: 'Bar Chart with Negative Value'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        grid: {
+          top: 80,
+          bottom: 30
+        },
+        xAxis: {
+          type: 'value',
+          position: 'top',
+          splitLine: {
+            lineStyle: {
+              type: 'dashed'
+            }
+          }
+        },
+        yAxis: {
+          type: 'category',
+          axisLine: { show: false },
+          axisLabel: { show: false },
+          axisTick: { show: false },
+          splitLine: { show: false },
+          data: data2
+        },
+        series: [
+          {
+            name: 'Cost',
+            type: 'bar',
+            stack: 'Total',
+            label: {
+              show: true,
+              formatter: '{b}'
+            },
+            data: data1
+          }
+        ]
+      };
+
+      option && myChart.setOption(option);
+    })
+
+  })
+</script>
+
+</body>
+</html>
